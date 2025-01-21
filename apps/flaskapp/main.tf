@@ -8,7 +8,7 @@ module "networking" {
 }
 
 module "cluster" {
-  source = "../../modules/cluster"
+  source = "../../modules/ecs-cluster"
   
   cluster_name    = var.ecs_cluster_name
   vpc_id         = module.networking.vpc_id
@@ -17,7 +17,7 @@ module "cluster" {
 }
 
 module "flask_service" {
-  source = "../../modules/service"
+  source = "../../modules/ecs-service"
   
   service_name         = var.ecs_service_name
   cluster_name        = module.cluster.cluster_name
