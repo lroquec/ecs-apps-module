@@ -34,6 +34,6 @@ output "execution_role_arn" {
 }
 
 output "dns_name" {
-  description = "The DNS name for the service"
-  value       = var.create_dns_record ? aws_route53_record.service[0].fqdn : null
+  description = "The full DNS name for the service"
+  value       = "${var.subdomain}.${var.domain_zone_name}"
 }
