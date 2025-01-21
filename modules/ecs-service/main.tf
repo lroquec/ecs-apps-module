@@ -185,3 +185,29 @@ resource "aws_route53_record" "service" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_iam_role_policy" "ecs_execution_policy" {
+  name = "${var.service_name}-execution-policy"
+  role = aws_iam_role.ecs_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "logs:CreateLogGroup"
+        ]
+        Resource = [
+          "arn:aws:logs:*:*:*",
+          "arn:aws:ecr:*:*:repository/*"
+        ]
+      }
+    ]
+  })
+}
