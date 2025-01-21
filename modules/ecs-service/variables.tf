@@ -84,3 +84,13 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "domain_zone_name" {
+  description = "The name of the hosted zone in Route53"
+  type        = string
+}
+
+variable "subdomain" {
+  description = "The subdomain for the service"
+  type        = string
+}

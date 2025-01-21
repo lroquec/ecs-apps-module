@@ -168,3 +168,20 @@ resource "aws_iam_role" "ecs_task_role" {
 
 # Data sources
 data "aws_region" "current" {}
+
+# Route53 configuration
+data "aws_route53_zone" "selected" {
+  name = var.domain_zone_name
+}
+
+resource "aws_route53_record" "service" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "${var.subdomain}.${var.domain_zone_name}"
+  type    = "A"
+
+  alias {
+    name                   = var.alb_dns_name
+    zone_id                = var.alb_zone_id
+    evaluate_target_health = true
+  }
+}

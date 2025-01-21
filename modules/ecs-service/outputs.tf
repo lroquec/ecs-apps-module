@@ -32,3 +32,8 @@ output "execution_role_arn" {
   description = "ARN of the ECS execution role"
   value       = aws_iam_role.ecs_execution_role.arn
 }
+
+output "dns_name" {
+  description = "The DNS name for the service"
+  value       = var.create_dns_record ? aws_route53_record.service[0].fqdn : null
+}
