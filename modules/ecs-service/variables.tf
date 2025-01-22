@@ -104,3 +104,8 @@ variable "alb_zone_id" {
   description = "Zone ID of the ALB"
   type        = string
 }
+
+variable "listener_arn" {
+  description = "ARN of the ALB listener"
+  type        = string
+}
