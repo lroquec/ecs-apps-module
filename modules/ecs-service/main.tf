@@ -49,14 +49,18 @@ resource "aws_lb_target_group" "app" {
 }
 
 # ALB Listener Rule
-resource "aws_lb_listener" "http" {
-  load_balancer_arn = var.alb_arn
-  port              = "80"
-  protocol          = "HTTP"
+resource "aws_lb_listener_rule" "app" {
+  listener_arn = var.listener_arn
 
-  default_action {
+  action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app.arn
+  }
+
+  condition {
+    host_header {
+      values = ["${var.subdomain}.${var.domain_zone_name}"]
+    }
   }
 }
 
