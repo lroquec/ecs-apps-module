@@ -27,3 +27,8 @@ output "alb_security_group_id" {
   description = "The ID of the ALB security group"
   value       = aws_security_group.alb.id
 }
+
+output "listener_arn" {
+  description = "The ARN of the ALB listener"
+  value       = aws_lb_listener.http.arn
+}
